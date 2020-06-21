@@ -1,0 +1,14 @@
+<table class="table table-striped table-bordered">
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>Text</th>
+    </tr>
+    </thead>
+    {% for task in value %}
+        <tr>
+            <td>{{ task.id }}</td>
+            <td>{{ task.text }}</td>
+        </tr>
+    {% endfor %}
+</table>

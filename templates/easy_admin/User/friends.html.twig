@@ -1,0 +1,16 @@
+<table class="table table-striped table-bordered">
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>Friend</th>
+        <th>Request Status</th>
+    </tr>
+    </thead>
+    {% for friend in value %}
+        <tr>
+            <td>{{ friend.id }}</td>
+            <td>{{ friend.frn_usr1 }}</td>
+            <td>{{ friend.request }}</td>
+        </tr>
+    {% endfor %}
+</table>

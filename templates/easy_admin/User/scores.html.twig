@@ -1,0 +1,16 @@
+<table class="table table-striped table-bordered">
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>Amount</th>
+        <th>Date</th>
+    </tr>
+    </thead>
+    {% for score in value %}
+        <tr>
+            <td>{{ score.id }}</td>
+            <td>{{ score.amount }}</td>
+            <td>{{ score.date|date('Y-m-d') }}</td>
+        </tr>
+    {% endfor %}
+</table>

@@ -1,0 +1,229 @@
+easy_admin:
+    site_name: 'Launch'
+    design:
+        brand_color: '#E71D36'
+        assets:
+            favicon: 'public/assets/easyadmin/launch_logo_favicon.png'
+        menu:
+            - {label: "Task Settings"}
+            - label: "Task"
+              icon: 'sticky-note'
+              children:
+                - {entity: Task, label: "List Of All tasks", icon: "th-list"}
+                - {entity: Task, label: "Add Task", icon: 'sticky-note', params: {action: 'new'}}
+            - label: "Project"
+              icon: 'list-alt'
+              children:
+                  - {entity: Project, label: "List Of All Projects", icon: "th-list"}
+                  - {entity: Project, label: "Add Project", icon: "plus", params: {action: 'new'}}
+            - label: "Tag"
+              icon: 'hashtag'
+              children:
+                  - {entity: Tag, label: "List Of All Tags", icon: "th-list"}
+                  - {entity: Tag, label: "Add Tag", icon: "plus", params: {action: 'new'}}
+            - {label: "User Settings"}
+            - label: "User"
+              icon: 'user'
+              children:
+                  - {entity: User, label: "List Of All Users", icon: "th-list"}
+                  - {entity: User, label: "Add User", icon: "plus", params: {action: 'new'}}
+            - label: "Friend"
+              icon: 'users'
+              children:
+                  - {entity: Friend, label: "List Of All Friend Requests", icon: "th-list"}
+                  - {entity: Friend, label: "Add Friend", icon: "plus", params: {action: 'new'}}
+            - label: "Image"
+              icon: 'image'
+              children:
+                  - {entity: Image, label: "List Of All Images", icon: "th-list"}
+                  - {entity: Image, label: "Add Image", icon: "plus", params: {action: 'new'}}
+            - label: "Score"
+              icon: 'gamepad'
+              children:
+                  - {entity: Score, label: "List Of All Scores", icon: "th-list"}
+                  - {entity: Score, label: "Add Score", icon: "plus", params: {action: 'new'}}
+    user:
+        display_name: true
+        display_avatar: true
+        # name_property_path:
+    entities:
+#        # List the entity class name you want to manage
+        User:
+            class: App\Entity\User
+            show:
+              fields:
+                - id
+                - {property: 'username', label: "Username"}
+                - {property: 'images', template: 'easy_admin/User/images.html.twig'}
+                - {property: 'firstname', label: "First Name"}
+                - {property: 'lastname', label: "Last Name"}
+                - email
+                - { property: 'tasks', template: 'easy_admin/User/tasks.html.twig' }
+                #- { property: 'friend1', template: 'easy_admin/User/friends.html.twig' }
+                - {property: 'birthday', label: "Birthday", type: "birthday"}
+                - created
+                - lastlogin
+                - enabled
+                - roles
+            form:
+                fields:
+                    - {type: 'group', icon: 'pencil', label: 'Basic Information', css_class: 'col-lg-5'}
+                    - {property: 'username', label: "Username"}
+                    - {property: 'firstname', label: "First Name"}
+                    - {property: 'lastname', label: "Last Name"}
+                    - email
+                    - {property: 'password', label: "Password", type: "password"}
+                    - {property: 'birthday', label: "Birthday", type: "birthday"}
+                    - created
+                    - lastlogin
+                    - enabled
+                    - roles
+            list:
+              collapse_actions: true
+              actions: ['show', 'edit', 'delete']
+              title: "User"
+              fields:
+                - id
+                - {property: 'username', label: "Username"}
+                - {property: 'firstname', label: "First Name"}
+                - {property: 'lastname', label: "Last Name"}
+                - email
+                - created
+                - birthday
+                - enabled
+                - tasks
+                #- frn_usr2
+
+        Task:
+            class: App\Entity\Task
+            form:
+              fields:
+                - {type: 'group', icon: 'pencil', label: 'Basic Information', css_class: 'col-lg-7'}
+                - text
+                - created
+                - property: 'status'
+                  label: 'Weight'
+                  type: choice
+                  type_options:
+                    choices:
+                      'Incomplete': 'Incomplete'
+                      'Complete': 'Complete'
+                - {property: 'tocomplete', label: "Date To Complete"}
+                - {property: 'datecompleted', label: "Date Completed"}
+                - property: 'weight'
+                  label: 'Weight'
+                  type: choice
+                  type_options:
+                    choices:
+                      'Easy': 'Easy'
+                      'Medium': 'Medium'
+                      'Hard': 'Hard'
+                - public
+                - {property: 'tsk_usr', label: "User"}
+                - {type: 'group', icon: 'th-list', label: 'Other Information', css_class: 'col-lg-5'}
+                - {property: 'tsk_tag', label: "Tag"}
+                - {property: 'tsk_prj', label: "Project"}
+            list:
+                collapse_actions: true
+                actions: [ 'edit', 'delete']
+                fields:
+                  - id
+                  - text
+                  - created
+                  - status
+                  - {property: 'tocomplete', label: "Date To Complete"}
+                  - {property: 'datecompleted', label: "Date Completed"}
+                  - weight
+                  - public
+                  - {property: 'tsk_prj', label: "Project"}
+                  - {property: 'tsk_tag', label: "Tag"}
+                filters: ['public']
+        Friend:
+            class: App\Entity\Friend
+            form:
+              fields:
+                - {type: 'group', icon: 'pencil', label: 'Basic Information', css_class: 'col-lg-7'}
+                - property: 'request'
+                  label: 'Request'
+                  type: choice
+                  type_options:
+                    choices:
+                      'Pending': 'Pending'
+                      'Denied': 'Denied'
+                      'Accepted': 'Accepted'
+                - {type: 'group', icon: 'pencil', label: 'Connection', css_class: 'col-lg-7'}
+                - {property: 'frn_usr1', label: "Sender"}
+                - {property: 'frn_usr2', label: "Receiver"}
+            list:
+              collapse_actions: true
+              actions: [ 'edit', 'delete']
+              fields:
+                - id
+                - request
+                - {property: 'frn_usr1', label: "Sender"}
+                - {property: 'frn_usr2', label: "Receiver"}
+        Image:
+            class: App\Entity\Image
+            form:
+              fields:
+                - {type: 'group', icon: 'pencil', label: 'Basic Information', css_class: 'col-lg-7'}
+                - { property: 'file', type: 'Vich\UploaderBundle\Form\Type\VichFileType' }
+                - {property: 'img_usr', label: "User"}
+            list:
+              collapse_actions: true
+              actions: ['edit', 'delete']
+              fields:
+                - id
+                - {property: 'url', type: "image", label: "Image"}
+                - {property: 'img_usr', label: "User"}
+        Tag:
+            class: App\Entity\Tag
+            form:
+              fields:
+                - {type: 'group', icon: 'pencil', label: 'Basic Information', css_class: 'col-lg-7'}
+                - name
+                - {property: 'tag_usr', label: "User"}
+                - {type: 'group', icon: 'th-list', label: 'Other Information', css_class: 'col-lg-5'}
+                - tasks
+            list:
+              collapse_actions: true
+              actions: ['edit', 'delete']
+              fields:
+                - id
+                - name
+                - {property: 'tag_usr', label: "User"}
+                - tasks
+        Score:
+            class: App\Entity\Score
+            form:
+              fields:
+                - {type: 'group', icon: 'pencil', label: 'Basic Information', css_class: 'col-lg-7'}
+                - amount
+                - date
+                - {property: 'scr_usr', label: "User"}
+            list:
+              collapse_actions: true
+              actions: ['edit', 'delete']
+              fields:
+                - id
+                - amount
+                - date
+                - {property: 'scr_usr', label: "User"}
+        Project:
+            class: App\Entity\Project
+            form:
+              fields:
+                - {type: 'group', icon: 'pencil', label: 'Basic Information', css_class: 'col-lg-7'}
+                - name
+                - {property: 'prj_usr', label: "User"}
+                - {type: 'group', icon: 'th-list', label: 'Other Information', css_class: 'col-lg-5'}
+                - tasks
+            list:
+              collapse_actions: true
+              actions: ['edit', 'delete']
+              fields:
+                - id
+                - name
+                - {property: 'prj_usr', label: "User"}
+                - tasks
+

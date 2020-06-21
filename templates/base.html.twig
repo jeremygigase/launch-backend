@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}{% endblock %}
+    </head>
+    <body>
+        {% block body %}{% endblock %}
+        Default Launch site
+        <img src={{ 'assets/logo/final_logo.png'}}/>
+        <a href="admin" class="btn btn-primary btn-lg square" role="button">Back To Admin</a>
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>
