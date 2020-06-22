@@ -20,6 +20,6 @@ class AdminSecurityController extends AbstractController
      */
     public function logout()
     {
-
+        return $this->render('security/login.html.twig');
     }
 }

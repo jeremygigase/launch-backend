@@ -44,6 +44,7 @@ security:
                 use_referer: true
             logout:
                 path: security_logout
+                target: /admin
 
         main:
             anonymous: lazy

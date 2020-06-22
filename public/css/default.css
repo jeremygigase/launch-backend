@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Jura&display=swap');
+
+.base{
+    background-color: #041B15;
+    min-height: 100vh;
+    font-family: 'Jura', sans-serif;
+    color: white;
+    margin: 10em auto;
+    width: 60vmin;
+    text-align: center;
+}
+
+.logo {
+    height: 20vmin;
+    pointer-events: none;
+}
+
+.logo-header {
+    padding-top: 6vmin;
+    font-size: calc(3px + 1vmin);
+    font-weight: 300;
+}
+
+main a{
+    text-decoration: none;
+    color: white;
+}
+
+main a:hover{
+    color: #E71D36;
+    text-decoration: underline;
+}
+
+.login{
+    margin: auto;
+    background-color: white;
+    padding: 0.25em;
+    width: 45vmin;
+}
+
+.login-form {
+    text-align: left;
+    padding: 1em;
+    line-height: 2.5em;
+    color: black;
+    font-size: 80%;
+}
+
+.login input
+{
+    border: none;
+    border-bottom: 1px solid #D3D3D3;
+    width: 100%;
+    height: 1.5em;
+    margin-bottom: 0.5em;
+}
+
+button{
+    text-align: center;
+    background: black;
+    margin-top: 1em;
+    padding-top: 2px;
+    width: 9em;
+    height: 3em;
+    border-radius: 25px;
+    color: white;
+}
+
+button:hover {
+    background: #E71D36;
+}

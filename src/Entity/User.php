@@ -187,7 +187,7 @@ class User implements UserInterface, CreatedDateInterface
     private $birthday;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="date", nullable=true)
      * @Groups({"post", "put", "get", "get-other-users-info"})
      */
     private $lastlogin;
