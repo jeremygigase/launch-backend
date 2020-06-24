@@ -19,7 +19,9 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
  * @ApiFilter(
  *   SearchFilter::class,
  *     properties={
- *         "text": "partial"
+ *         "text": "partial",
+ *         "tocomplete" : "exact",
+ *          "status" : "exact"
  *     }
  * )
  * @ApiFilter(

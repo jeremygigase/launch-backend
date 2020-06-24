@@ -7,8 +7,16 @@ use App\Repository\ScoreRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
+ * @ApiFilter(
+ *   SearchFilter::class,
+ *     properties={
+ *         "date": "exact"
+ *     }
+ * )
  * @ApiResource(
  *     attributes={"order"={"date" : "DESC"}},
  *     collectionOperations={

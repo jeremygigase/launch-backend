@@ -81,6 +81,7 @@ class User implements UserInterface, CreatedDateInterface
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"get-other-users-info"})
      */
     private $id;
 
