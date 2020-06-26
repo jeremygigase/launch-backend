@@ -89,7 +89,7 @@ class User implements UserInterface, CreatedDateInterface
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      * @Assert\Length(min=5, max=255, groups={"post", "put"})
-     * @Groups({"get", "post", "put", "get-other-users-info"})
+     * @Groups({"get", "post", "put", "get-other-users-info", "friend"})
      */
     private $username;
 
@@ -149,7 +149,7 @@ class User implements UserInterface, CreatedDateInterface
 
     /**
      * @ORM\OneToMany(targetEntity=Task::class, mappedBy="tsk_usr")
-     * @Groups({"get", "get-other-users-info"})
+     * @Groups({"get", "get-other-users-info", "friend"})
      * @ApiSubresource()
      */
     private $tasks;
@@ -162,14 +162,14 @@ class User implements UserInterface, CreatedDateInterface
     private $tags;
 
     /**
-     * @ORM\OneToMany(targetEntity=Friend::class, mappedBy="frn_usr1")
+     * @ORM\OneToMany(targetEntity=Friend::class, mappedBy="sender")
      * @Groups({"get-owner"})
      * @ApiSubresource()
      */
     private $friend1;
 
     /**
-     * @ORM\OneToMany(targetEntity=Friend::class, mappedBy="frn_usr2")
+     * @ORM\OneToMany(targetEntity=Friend::class, mappedBy="receiver")
      * @Groups({"get-owner"})
      * @ApiSubresource()
      */
@@ -177,25 +177,25 @@ class User implements UserInterface, CreatedDateInterface
 
     /**
      * @ORM\Column(type="date")
-     * @Groups({"post", "get"})
+     * @Groups({"post", "get", "friend"})
      */
     private $created;
 
     /**
      * @ORM\Column(type="date")
-     * @Groups({"post", "get-other-users-info"})
+     * @Groups({"post", "get-other-users-info", "friend"})
      */
     private $birthday;
 
     /**
      * @ORM\Column(type="date", nullable=true)
-     * @Groups({"post", "put", "get", "get-other-users-info"})
+     * @Groups({"post", "put", "get", "get-other-users-info", "friend"})
      */
     private $lastlogin;
 
     /**
      * @ORM\OneToMany(targetEntity=Score::class, mappedBy="scr_usr")
-     * @Groups({"get","get-other-users-info"})
+     * @Groups({"get","get-other-users-info", "friend"})
      * @ApiSubresource()
      */
     private $scores;
@@ -208,7 +208,7 @@ class User implements UserInterface, CreatedDateInterface
 
     /**
      * @ORM\OneToMany(targetEntity=Image::class, mappedBy="img_usr")
-     * @Groups({"get", "put", "get-other-users-info"})
+     * @Groups({"get", "put", "get-other-users-info", "friend"})
      * @ApiSubresource()
      */
     private $images;

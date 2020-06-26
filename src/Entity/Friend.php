@@ -7,8 +7,18 @@ use App\Repository\FriendRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 
 /**
+ * @ApiFilter(
+ *   SearchFilter::class,
+ *     properties={
+ *         "request": "exact",
+ *         "sender": "exact"
+ *     }
+ * )
  * @ApiResource(
  *     collectionOperations={
  *         "get",
@@ -16,7 +26,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     },
  *     itemOperations={
  *         "get"
- *     }
+ *     }, normalizationContext={"groups"={"friend"}}
  * )
  * @ORM\Entity(repositoryClass=FriendRepository::class)
  */
@@ -31,6 +41,7 @@ class Friend implements AuthoredEntityInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"friend"})
      */
     private $request;
 
@@ -38,13 +49,15 @@ class Friend implements AuthoredEntityInterface
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="friend1")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $frn_usr1;
+    private $sender;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="friend2")
      * @ORM\JoinColumn(nullable=false)
+     * @ApiSubresource()
+     * @Groups({"friend"})
      */
-    private $frn_usr2;
+    private $receiver;
 
     public function getId(): ?int
     {
@@ -63,33 +76,33 @@ class Friend implements AuthoredEntityInterface
         return $this;
     }
 
-    public function getFrnUsr1(): ?User
+    public function getSender(): ?User
     {
-        return $this->frn_usr1;
+        return $this->sender;
     }
 
-    public function setUser(?UserInterface $frn_usr1): AuthoredEntityInterface
+    public function setUser(?UserInterface $sender): AuthoredEntityInterface
     {
-        $this->frn_usr1 = $frn_usr1;
+        $this->sender = $sender;
 
         return $this;
     }
 
-    public function setFrnUsr1(?User $frn_usr1): self
+    public function setSender(?User $sender): self
     {
-        $this->frn_usr1 = $frn_usr1;
+        $this->sender = $sender;
 
         return $this;
     }
 
-    public function getFrnUsr2(): ?User
+    public function getReceiver(): ?User
     {
-        return $this->frn_usr2;
+        return $this->receiver;
     }
 
-    public function setFrnUsr2(?User $frn_usr2): self
+    public function setReceiver(?User $receiver): self
     {
-        $this->frn_usr2 = $frn_usr2;
+        $this->receiver = $receiver;
 
         return $this;
     }

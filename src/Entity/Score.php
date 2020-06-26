@@ -40,12 +40,13 @@ class Score implements AuthoredEntityInterface , CreatedDateInterface
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups({"get-friends"})
+     * @Groups({"get-friends", "friend"})
      */
     private $amount;
 
     /**
      * @ORM\Column(type="date")
+     * @Groups({"friend"})
      */
     private $date;
 
