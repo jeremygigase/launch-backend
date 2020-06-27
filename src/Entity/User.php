@@ -21,7 +21,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  * @ApiFilter(
  *   SearchFilter::class,
  *     properties={
- *         "username": "partial"
+ *         "username": "exact"
  *     }
  * )
  * @ApiResource(
@@ -81,7 +81,7 @@ class User implements UserInterface, CreatedDateInterface
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"get-other-users-info"})
+     * @Groups({"get-other-users-info", "friend" })
      */
     private $id;
 
@@ -409,7 +409,7 @@ class User implements UserInterface, CreatedDateInterface
         if ($this->friend1->contains($friend1)) {
             $this->friend1->removeElement($friend1);
             // set the owning side to null (unless already changed)
-            if ($friend1->getFrnUsr1() === $this) {
+            if ($friend1->getSender() === $this) {
                 $friend1->setUser(null);
             }
         }
@@ -429,7 +429,7 @@ class User implements UserInterface, CreatedDateInterface
     {
         if (!$this->friend2->contains($friend2)) {
             $this->friend2[] = $friend2;
-            $friend2->setFrnUsr2($this);
+            $friend2->setReceiver($this);
         }
 
         return $this;
@@ -440,8 +440,8 @@ class User implements UserInterface, CreatedDateInterface
         if ($this->friend2->contains($friend2)) {
             $this->friend2->removeElement($friend2);
             // set the owning side to null (unless already changed)
-            if ($friend2->getFrnUsr2() === $this) {
-                $friend2->setFrnUsr2(null);
+            if ($friend2->getReceiver() === $this) {
+                $friend2->setReceiver(null);
             }
         }
 

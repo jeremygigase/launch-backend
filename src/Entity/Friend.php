@@ -22,10 +22,11 @@ use ApiPlatform\Core\Annotation\ApiSubresource;
  * @ApiResource(
  *     collectionOperations={
  *         "get",
- *         "post",
+ *         "post"={"denormalization_context"={"groups"={"request"}}}
  *     },
  *     itemOperations={
- *         "get"
+ *         "get",
+ *          "put"
  *     }, normalizationContext={"groups"={"friend"}}
  * )
  * @ORM\Entity(repositoryClass=FriendRepository::class)
@@ -36,18 +37,20 @@ class Friend implements AuthoredEntityInterface
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"friend", "request"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"friend"})
+     * @Groups({"friend", "request"})
      */
     private $request;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="friend1")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"friend", "request"})
      */
     private $sender;
 
@@ -55,7 +58,7 @@ class Friend implements AuthoredEntityInterface
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="friend2")
      * @ORM\JoinColumn(nullable=false)
      * @ApiSubresource()
-     * @Groups({"friend"})
+     * @Groups({"friend", "request"})
      */
     private $receiver;
 

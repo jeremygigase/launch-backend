@@ -152,16 +152,16 @@ easy_admin:
                       'Denied': 'Denied'
                       'Accepted': 'Accepted'
                 - {type: 'group', icon: 'pencil', label: 'Connection', css_class: 'col-lg-7'}
-                - {property: 'frn_usr1', label: "Sender"}
-                - {property: 'frn_usr2', label: "Receiver"}
+                - {property: 'sender', label: "Sender"}
+                - {property: 'receiver', label: "Receiver"}
             list:
               collapse_actions: true
               actions: [ 'edit', 'delete']
               fields:
                 - id
                 - request
-                - {property: 'frn_usr1', label: "Sender"}
-                - {property: 'frn_usr2', label: "Receiver"}
+                - {property: 'sender', label: "Sender"}
+                - {property: 'receiver', label: "Receiver"}
         Image:
             class: App\Entity\Image
             form:
